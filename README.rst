@@ -1,7 +1,11 @@
 Kivy Google Drive
 ==================
 
-This is a barebones codebase that enables accessing Google Drive using the Kivy framework. Using Kivy, authenticating through the user's google account for access to Google services using oauth2 on mobile platforms can be challenging. The codebase used here is for Google Drive, but it should generalize to other Google services.
+This is a barebones codebase that enables accessing Google Drive using the Kivy framework. In kivy, authenticating through the users' Google accounts for access to Google services using oauth2 on mobile platforms can be challenging. In particular, code that works on desktop can often fail on mobile. 
+
+Why does this happen? One culprit appears to be that there is a unit test in the iri2uri.py module needed by httplib2 that is named '__main__', which the various kivy tools for mobile (buildozer, p4a etc...) flag and decide to not prepare a pyo for iri2uri. This has a downstream effect that causes apps to crash on mobile platforms.
+
+The codebase used here is for Google Drive, but it should generalize to other Google services.
 
 All the code is based on google's native python library for installed applications. The idea is to keep the codebase consistent across desktop and mobile platforms. This does not require a separate Android/iOS workflow using Google Sign-in.
 
